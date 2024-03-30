@@ -70,13 +70,14 @@ func (c *AdsPower) QueryProfiles(ctx context.Context, opts ...*QueryProfileOptio
 }
 
 func (c *AdsPower) QueryProfilesByGroupName(ctx context.Context, groupName string, offset, limit int) (Profiles, error) {
-	_, err := c.QueryGroups(ctx, &QueryGroupOptions{Name: groupName})
+	groups, err := c.QueryGroups(ctx, &QueryGroupOptions{Name: groupName})
 	if err != nil {
 		return nil, err
 	}
 
+	group := groups[0]
 	opts := &QueryProfileOptions{
-		GroupID: "",
+		GroupID: group.ID,
 		Offset:  offset,
 		Limit:   limit,
 	}

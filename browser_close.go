@@ -6,13 +6,14 @@ import (
 	"net/http"
 )
 
-func (c *AdsPower) CloseBrowser(ctx context.Context, id string) error {
+func (a *AdsPower) CloseBrowser(ctx context.Context, id string) error {
 	url := fmt.Sprintf("%s/stop?user_id=%s", RootUrl, id)
 
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
-	c.rl.Take()
+	defer req.Body.Close()
 
-	resp, err := c.HTTPClient.Do(req)
+	a.rl.Take()
+	resp, err := a.HTTPClient.Do(req)
 	if err != nil {
 		return err
 	}

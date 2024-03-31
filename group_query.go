@@ -13,7 +13,7 @@ type QueryGroupOptions struct {
 	Limit  int
 }
 
-func (c *AdsPower) QueryGroups(ctx context.Context, opts ...*QueryGroupOptions) (Groups, error) {
+func (a *AdsPower) QueryGroups(ctx context.Context, opts ...*QueryGroupOptions) (Groups, error) {
 	url_ := fmt.Sprintf("%s/list", GroupApi)
 	if opts != nil {
 		opts_ := opts[0]
@@ -34,9 +34,10 @@ func (c *AdsPower) QueryGroups(ctx context.Context, opts ...*QueryGroupOptions) 
 	}
 
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url_, nil)
-	c.rl.Take()
+	defer req.Body.Close()
 
-	resp, err := c.HTTPClient.Do(req)
+	a.rl.Take()
+	resp, err := a.HTTPClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -64,9 +65,9 @@ func (c *AdsPower) QueryGroups(ctx context.Context, opts ...*QueryGroupOptions) 
 	return groups, nil
 }
 
-func (c *AdsPower) QueryGroupByName(ctx context.Context, name string) (*Group, error) {
+func (a *AdsPower) QueryGroupByName(ctx context.Context, name string) (*Group, error) {
 	opts := &QueryGroupOptions{Name: name}
-	groups, err := c.QueryGroups(ctx, opts)
+	groups, err := a.QueryGroups(ctx, opts)
 	if err != nil {
 		_, ok := err.(errNoGroupsFound)
 		if ok {

@@ -9,13 +9,13 @@ import (
 
 type QueryProfileOptions struct {
 	ID           string
-	GroupID      string
+	GroupId      string
 	SerialNumber string
 	Offset       int
 	Limit        int
 }
 
-func (c *AdsPower) QueryProfiles(ctx context.Context, opts ...*QueryProfileOptions) (Profiles, error) {
+func (a *AdsPower) QueryProfiles(ctx context.Context, opts ...*QueryProfileOptions) (Profiles, error) {
 	url_ := fmt.Sprintf("%s/list", UserApi)
 	if len(opts) != 0 {
 		opts_ := opts[0]
@@ -26,8 +26,8 @@ func (c *AdsPower) QueryProfiles(ctx context.Context, opts ...*QueryProfileOptio
 				query.Set("user_id", opts_.ID)
 			}
 
-			if opts_.GroupID != "" {
-				query.Set("group_id", opts_.GroupID)
+			if opts_.GroupId != "" {
+				query.Set("group_id", opts_.GroupId)
 			}
 
 			if opts_.SerialNumber != "" {
@@ -47,9 +47,10 @@ func (c *AdsPower) QueryProfiles(ctx context.Context, opts ...*QueryProfileOptio
 	}
 
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url_, nil)
-	c.rl.Take()
+	defer req.Body.Close()
 
-	resp, err := c.HTTPClient.Do(req)
+	a.rl.Take()
+	resp, err := a.HTTPClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -69,18 +70,18 @@ func (c *AdsPower) QueryProfiles(ctx context.Context, opts ...*QueryProfileOptio
 	return profiles, nil
 }
 
-func (c *AdsPower) QueryProfilesByGroupName(ctx context.Context, groupName string, offset, limit int) (Profiles, error) {
-	groups, err := c.QueryGroups(ctx, &QueryGroupOptions{Name: groupName})
+func (a *AdsPower) QueryProfilesByGroupName(ctx context.Context, groupName string, offset, limit int) (Profiles, error) {
+	groups, err := a.QueryGroups(ctx, &QueryGroupOptions{Name: groupName})
 	if err != nil {
 		return nil, err
 	}
 
 	group := groups[0]
 	opts := &QueryProfileOptions{
-		GroupID: group.ID,
+		GroupId: group.ID,
 		Offset:  offset,
 		Limit:   limit,
 	}
 
-	return c.QueryProfiles(ctx, opts)
+	return a.QueryProfiles(ctx, opts)
 }

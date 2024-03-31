@@ -18,8 +18,9 @@ type OpenBrowserOptions struct {
 	EnablePasswordSaving   bool
 }
 
-func (c *AdsPower) OpenBrowser(ctx context.Context, id string, opts ...*OpenBrowserOptions) (*Browser, error) {
+func (a *AdsPower) OpenBrowser(ctx context.Context, id string, opts ...*OpenBrowserOptions) (*Browser, error) {
 	url_ := fmt.Sprintf("%s/start?user_id=%s", RootUrl, id)
+
 	if len(opts) != 0 {
 		opts_ := opts[0]
 		if opts_ != nil {
@@ -58,9 +59,10 @@ func (c *AdsPower) OpenBrowser(ctx context.Context, id string, opts ...*OpenBrow
 	}
 
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url_, nil)
-	c.rl.Take()
+	defer req.Body.Close()
 
-	resp, err := c.HTTPClient.Do(req)
+	a.rl.Take()
+	resp, err := a.HTTPClient.Do(req)
 	if err != nil {
 		return nil, err
 	}

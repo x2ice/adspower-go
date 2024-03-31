@@ -6,13 +6,14 @@ import (
 	"net/http"
 )
 
-func (c *AdsPower) QueryAllOpenedBrowsers(ctx context.Context) (Browsers, error) {
+func (a *AdsPower) QueryAllOpenedBrowsers(ctx context.Context) (Browsers, error) {
 	url := fmt.Sprintf("%s/local-active", RootUrl)
 
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
-	c.rl.Take()
+	defer req.Body.Close()
 
-	resp, err := c.HTTPClient.Do(req)
+	a.rl.Take()
+	resp, err := a.HTTPClient.Do(req)
 	if err != nil {
 		return nil, err
 	}

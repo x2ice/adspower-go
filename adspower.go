@@ -13,8 +13,10 @@ type AdsPower struct {
 }
 
 func NewAdsPower() *AdsPower {
+	duration := time.Duration(float64(time.Second) * 1.5)
+	ratelimitPer := ratelimit.Per(duration)
 	return &AdsPower{
 		HTTPClient: &http.Client{},
-		rl:         ratelimit.New(1, ratelimit.Per(time.Second*1)),
+		rl:         ratelimit.New(1, ratelimitPer),
 	}
 }

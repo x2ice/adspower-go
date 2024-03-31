@@ -17,7 +17,6 @@ func (a *AdsPower) QueryAllOpenedBrowsers(ctx context.Context) (Browsers, error)
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 
 	decodedBody, err := decodeResponseBody[openedBrowsersResponse](resp)
 	if err != nil {

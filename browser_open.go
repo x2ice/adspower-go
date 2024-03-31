@@ -59,7 +59,6 @@ func (a *AdsPower) OpenBrowser(ctx context.Context, id string, opts ...*OpenBrow
 	}
 
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url_, nil)
-	defer req.Body.Close()
 
 	a.rl.Take()
 	resp, err := a.HTTPClient.Do(req)

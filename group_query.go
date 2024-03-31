@@ -34,7 +34,6 @@ func (a *AdsPower) QueryGroups(ctx context.Context, opts ...*QueryGroupOptions) 
 	}
 
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url_, nil)
-	defer req.Body.Close()
 
 	a.rl.Take()
 	resp, err := a.HTTPClient.Do(req)

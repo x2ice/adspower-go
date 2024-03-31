@@ -17,7 +17,6 @@ func (a *AdsPower) CloseBrowser(ctx context.Context, id string) error {
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
 
 	decodedBody, err := decodeResponseBody[closeBrowserResponse](resp)
 	if err != nil {

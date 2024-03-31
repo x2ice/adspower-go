@@ -57,6 +57,7 @@ func (a *AdsPower) CreateProfile(ctx context.Context, GroupId string, proxyConfi
 
 	req.Header.Set("Content-Type", "application/json")
 
+	a.rl.Take()
 	resp, err := a.HTTPClient.Do(req)
 	if err != nil {
 		return "", err

@@ -10,9 +10,8 @@ func (a *AdsPower) QueryAllOpenedBrowsers(ctx context.Context) (Browsers, error)
 	url := fmt.Sprintf("%s/local-active", RootUrl)
 
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
-	defer req.Body.Close()
-
 	a.rl.Take()
+
 	resp, err := a.HTTPClient.Do(req)
 	if err != nil {
 		return nil, err

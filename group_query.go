@@ -34,8 +34,8 @@ func (a *AdsPower) QueryGroups(ctx context.Context, opts ...*QueryGroupOptions) 
 	}
 
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url_, nil)
-
 	a.rl.Take()
+
 	resp, err := a.HTTPClient.Do(req)
 	if err != nil {
 		return nil, err
@@ -55,7 +55,7 @@ func (a *AdsPower) QueryGroups(ctx context.Context, opts ...*QueryGroupOptions) 
 	list := decodedBody.Data.List
 	len := len(list)
 	if len == 0 {
-		return nil, ErrNoGroupsFound
+		return nil, errNoGroupsFound
 	}
 
 	groups := make(Groups, len)
@@ -68,10 +68,9 @@ func (a *AdsPower) QueryGroupByName(ctx context.Context, name string) (*Group, e
 	opts := &QueryGroupOptions{Name: name}
 	groups, err := a.QueryGroups(ctx, opts)
 	if err != nil {
-		_, ok := err.(errNoGroupsFound)
+		_, ok := err.(ErrNoGroupsFound)
 		if ok {
-			ErrGroupNotFound = fmt.Errorf("group %s not found", name)
-			return nil, ErrGroupNotFound
+			return nil, errGroupNotFound
 		}
 
 		return nil, err

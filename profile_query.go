@@ -47,8 +47,8 @@ func (a *AdsPower) QueryProfiles(ctx context.Context, opts ...*QueryProfileOptio
 	}
 
 	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, url_, nil)
-
 	a.rl.Take()
+
 	resp, err := a.HTTPClient.Do(req)
 	if err != nil {
 		return nil, err

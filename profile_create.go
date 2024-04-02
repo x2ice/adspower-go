@@ -29,10 +29,6 @@ type CreateProfileOptions struct {
 	SysAppCateID      string   `json:"sys_app_cate_id,omitempty"`
 }
 
-func DefaultProxyConfig() *ProxyConfig {
-	return &ProxyConfig{ProxySoft: "no_proxy"}
-}
-
 func (a *AdsPower) CreateProfile(ctx context.Context, GroupId string, proxyConfig *ProxyConfig, fingerprintConfig *FingerprintConfig, opts ...*CreateProfileOptions) (string, error) {
 	var opts_ *CreateProfileOptions
 	if len(opts) != 0 {

@@ -48,13 +48,13 @@ type Browsers []*Browser
 // ------------------------------ //
 
 type ProxyConfig struct {
-	ProxySoft     string `json:"proxy_soft"`
-	ProxyType     string `json:"proxy_type,omitempty"`
-	ProxyHost     string `json:"proxy_host,omitempty"`
-	ProxyPort     string `json:"proxy_port,omitempty"`
-	ProxyUser     string `json:"proxy_user,omitempty"`
-	ProxyPassword string `json:"proxy_password,omitempty"`
-	ProxyURL      string `json:"proxy_url,omitempty"`
+	Soft        string `json:"proxy_soft"`
+	Type        string `json:"proxy_type,omitempty"`
+	Host        string `json:"proxy_host,omitempty"`
+	Port        string `json:"proxy_port,omitempty"`
+	User        string `json:"proxy_user,omitempty"`
+	Password    string `json:"proxy_password,omitempty"`
+	ChangeIpUrl string `json:"proxy_url,omitempty"`
 }
 
 type FingerprintConfig struct {

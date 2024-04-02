@@ -27,7 +27,7 @@ func NewProxyConfigFromUrl(proxySoft, proxyUrl string) (*ProxyConfig, error) {
 	return &ProxyConfig{
 		Soft:        proxySoft,
 		Type:        url.Scheme,
-		Host:        url.Host,
+		Host:        url.Hostname(),
 		Port:        url.Port(),
 		User:        url.User.Username(),
 		Password:    password,

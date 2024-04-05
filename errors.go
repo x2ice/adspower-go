@@ -46,7 +46,7 @@ func handleResponseError(r iResponseMessage) error {
 		return errProfileLimitReached
 
 	case strings.Contains(msg, "does not exist"):
-		return errOpenBrowserFailure
+		return errProfileNotFound
 
 	case strings.Contains(msg, "wrong user_ids"):
 		return errProfileNotFound

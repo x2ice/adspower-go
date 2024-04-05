@@ -19,25 +19,25 @@ type UpdateProfileOptions struct {
 	Fakey             string             `json:"fakey,omitempty"`
 	Cookie            Cookies            `json:"cookie,omitempty"`
 	IgnoreCookieError int                `json:"ignore_cookie_error,omitempty"`
-	GroupId           string             `json:"group_id,omitempty"`
+	GroupId           string             `json:"group_Id,omitempty"`
 	IP                string             `json:"ip,omitempty"`
 	Country           string             `json:"country,omitempty"`
 	Region            string             `json:"region,omitempty"`
 	City              string             `json:"city,omitempty"`
 	Remark            string             `json:"remark,omitempty"`
 	IPChecker         string             `json:"ipchecker,omitempty"`
-	SysAppCateID      string             `json:"sys_app_cate_id,omitempty"`
+	SysAppCateId      string             `json:"sys_app_cate_Id,omitempty"`
 	ProxyConfig       *ProxyConfig       `json:"user_proxy_config"`
 	FingerprintConfig *FingerprintConfig `json:"fingerprint_config"`
 }
 
-func (a *AdsPower) UpdateProfile(ctx context.Context, id string, opts ...*UpdateProfileOptions) error {
+func (a *AdsPower) UpdateProfile(ctx context.Context, Id string, opts ...*UpdateProfileOptions) error {
 	var opts_ *UpdateProfileOptions
 	if len(opts) != 0 {
 		opts_ = opts[0]
 	}
 
-	payload := &updateProfileRequest{id, opts_}
+	payload := &updateProfileRequest{Id, opts_}
 
 	b, err := json.Marshal(payload)
 	if err != nil {
@@ -73,4 +73,14 @@ func (a *AdsPower) UpdateProfile(ctx context.Context, id string, opts ...*Update
 	}
 
 	return nil
+}
+
+func (a *AdsPower) UpdateProxy(ctx context.Context, id, proxySoft, proxyUrl string) error {
+	proxyConfig, err := NewProxyConfigFromUrl(proxySoft, proxyUrl)
+	if err != nil {
+		return err
+	}
+
+	opts := &UpdateProfileOptions{ProxyConfig: proxyConfig}
+	return a.UpdateProfile(ctx, id, opts)
 }

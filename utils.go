@@ -20,7 +20,7 @@ func DefaultProxyConfig() *ProxyConfig {
 func NewProxyConfigFromUrl(proxySoft, proxyUrl string) (*ProxyConfig, error) {
 	url, err := url.Parse(proxyUrl)
 	if err != nil {
-		return nil, errInvalidProxyFormat
+		return nil, errInvalIdProxyFormat
 	}
 
 	password, _ := url.User.Password()

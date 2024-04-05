@@ -34,7 +34,7 @@ type openedBrowsersResponse struct {
 }
 
 type Browser struct {
-	ID string `json:"user_id"`
+	Id string `json:"user_Id"`
 	Ws struct {
 		Selenium  string `json:"selenium"`
 		Puppeteer string `json:"puppeteer"`
@@ -108,7 +108,7 @@ type WebGPU struct {
 
 type MediaDevicesNum struct {
 	AudioInputNum  string `json:"audioinput_num,omitempty"`
-	VideoInputNum  string `json:"videoinput_num,omitempty"`
+	VIdeoInputNum  string `json:"vIdeoinput_num,omitempty"`
 	AudioOutputNum string `json:"audiooutput_num,omitempty"`
 }
 
@@ -136,13 +136,13 @@ type Cookie struct {
 	SameSite       string `json:"sameSite"`
 	Secure         bool   `json:"secure"`
 	Value          string `json:"value"`
-	ID             int    `json:"id"`
+	Id             int    `json:"Id"`
 }
 
 type Cookies []*Cookie
 
 type createProfileRequest struct {
-	GroupId           string             `json:"group_id"`
+	GroupId           string             `json:"group_Id"`
 	ProxyConfig       *ProxyConfig       `json:"user_proxy_config"`
 	FingerprintConfig *FingerprintConfig `json:"fingerprint_config"`
 	*CreateProfileOptions
@@ -151,7 +151,7 @@ type createProfileRequest struct {
 type createProfileResponse struct {
 	*response
 	Data struct {
-		ID string `json:"id"`
+		Id string `json:"Id"`
 	} `json:"data"`
 }
 
@@ -167,7 +167,7 @@ type queryGroupResponse struct {
 }
 
 type Group struct {
-	ID     string `json:"group_id"`
+	Id     string `json:"group_Id"`
 	Name   string `json:"group_name"`
 	Remark string `json:"remark,omitempty"`
 }
@@ -177,14 +177,14 @@ type Groups []*Group
 // ------------------------------ //
 
 type updateProfileRequest struct {
-	Id string `json:"user_id"`
+	Id string `json:"user_Id"`
 	*UpdateProfileOptions
 }
 
 type updateProfileResponse struct {
 	response
 	Data struct {
-		ID string `json:"id"`
+		Id string `json:"Id"`
 	} `json:"data"`
 }
 
@@ -201,14 +201,14 @@ type queryProfilesResponse struct {
 
 type Profile struct {
 	SerialNumber string `json:"serial_number"`
-	ID           string `json:"user_id"`
+	Id           string `json:"user_Id"`
 	Name         string `json:"name"`
-	GroupId      string `json:"group_id"`
+	GroupId      string `json:"group_Id"`
 	GroupName    string `json:"group_name"`
 	DomainName   string `json:"domain_name"`
 	Username     string `json:"username"`
 	Remark       string `json:"remark"`
-	SysAppCateID string `json:"sys_app_cate_id"`
+	SysAppCateId string `json:"sys_app_cate_Id"`
 	CreatedTime  string `json:"created_time"`
 	IP           string `json:"ip"`
 	IPCountry    string `json:"ip_country"`

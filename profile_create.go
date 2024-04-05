@@ -19,23 +19,23 @@ type CreateProfileOptions struct {
 	Fakey             string   `json:"fakey,omitempty"`
 	Cookie            Cookies  `json:"cookie,omitempty"`
 	IgnoreCookieError int      `json:"ignore_cookie_error,omitempty"`
-	GroupId           string   `json:"group_id,omitempty"`
+	GroupId           string   `json:"group_Id,omitempty"`
 	IP                string   `json:"ip,omitempty"`
 	Country           string   `json:"country,omitempty"`
 	Region            string   `json:"region,omitempty"`
 	City              string   `json:"city,omitempty"`
 	Remark            string   `json:"remark,omitempty"`
 	IPChecker         string   `json:"ipchecker,omitempty"`
-	SysAppCateID      string   `json:"sys_app_cate_id,omitempty"`
+	SysAppCateId      string   `json:"sys_app_cate_Id,omitempty"`
 }
 
-func (a *AdsPower) CreateProfile(ctx context.Context, GroupId string, proxyConfig *ProxyConfig, fingerprintConfig *FingerprintConfig, opts ...*CreateProfileOptions) (string, error) {
+func (a *AdsPower) CreateProfile(ctx context.Context, groupId string, proxyConfig *ProxyConfig, fingerprintConfig *FingerprintConfig, opts ...*CreateProfileOptions) (string, error) {
 	var opts_ *CreateProfileOptions
 	if len(opts) != 0 {
 		opts_ = opts[0]
 	}
 
-	payload := &createProfileRequest{GroupId, proxyConfig, fingerprintConfig, opts_}
+	payload := &createProfileRequest{groupId, proxyConfig, fingerprintConfig, opts_}
 
 	b, err := json.Marshal(payload)
 	if err != nil {
@@ -70,5 +70,5 @@ func (a *AdsPower) CreateProfile(ctx context.Context, GroupId string, proxyConfi
 		return "", err
 	}
 
-	return decodedBody.Data.ID, nil
+	return decodedBody.Data.Id, nil
 }

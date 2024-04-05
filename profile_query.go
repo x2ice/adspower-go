@@ -8,7 +8,7 @@ import (
 )
 
 type QueryProfileOptions struct {
-	ID           string
+	Id           string
 	GroupId      string
 	SerialNumber string
 	Offset       int
@@ -22,8 +22,8 @@ func (a *AdsPower) QueryProfiles(ctx context.Context, opts ...*QueryProfileOptio
 		if opts_ != nil {
 			query := url.Values{}
 
-			if opts_.ID != "" {
-				query.Set("user_id", opts_.ID)
+			if opts_.Id != "" {
+				query.Set("user_id", opts_.Id)
 			}
 
 			if opts_.GroupId != "" {
@@ -77,7 +77,7 @@ func (a *AdsPower) QueryProfilesByGroupName(ctx context.Context, groupName strin
 
 	group := groups[0]
 	opts := &QueryProfileOptions{
-		GroupId: group.ID,
+		GroupId: group.Id,
 		Offset:  offset,
 		Limit:   limit,
 	}
